@@ -2,7 +2,7 @@ package handler
 
 import (
 	"fmt"
-	"github.com/Leonardo-Antonio/image-to-b64/helper"
+	"github.com/Leonardo-Antonio/api-convert-to-b64/helper"
 	"github.com/labstack/echo/v4"
 	"io/ioutil"
 	"net/http"
