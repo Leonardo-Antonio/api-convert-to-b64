@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/Leonardo-Antonio/image-to-b64/handler"
+	"github.com/Leonardo-Antonio/api-convert-to-b64/handler"
 	"github.com/labstack/echo/v4"
 )
 
