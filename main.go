@@ -10,13 +10,13 @@ import (
 )
 
 func main() {
-	e := echo.New()
-	e.Use(middleware.CORS())
-	router.Image(e)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = ":8080"
 	}
 	fmt.Println("PORTTTTTT no POST", port)
+	e := echo.New()
+	e.Use(middleware.CORS())
+	router.Image(e)
 	e.Logger.Fatal(e.Start(port))
 }
