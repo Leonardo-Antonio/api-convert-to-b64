@@ -17,23 +17,25 @@ func NewImage() *Image {
 func (i *Image) EncryptB64(c echo.Context) error {
 	fileHeader, err := c.FormFile("image")
 	if err != nil {
-		fmt.Println(err)
+		response := helper.ResponseJSON(helper.MESSAGE, err.Error(), false, nil)
+		return c.JSON(http.StatusBadRequest, response)
 	}
-	fmt.Println(fileHeader.Filename)
 	file, err := fileHeader.Open()
 	if err != nil {
-		fmt.Println("error")
+		response := helper.ResponseJSON(helper.MESSAGE, err.Error(), false, nil)
+		return c.JSON(http.StatusInternalServerError, response)
 	}
-	defer file.Close()
-	data, err := ioutil.ReadAll(file)
+	b64, err := ioutil.ReadAll(file)
 	if err != nil {
-		fmt.Println("error")
+		response := helper.ResponseJSON(helper.MESSAGE, err.Error(), false, nil)
+		return c.JSON(http.StatusInternalServerError, response)
 	}
+	fmt.Println(fileHeader.Filename)
 	response := helper.ResponseJSON(
 		helper.MESSAGE,
 		"the image has been successfully converted",
 		false,
-		data,
+		b64,
 	)
 	return c.JSON(http.StatusOK, response)
 }
