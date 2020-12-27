@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"fmt"
 	"github.com/Leonardo-Antonio/api-convert-to-b64/helper"
+	"github.com/Leonardo-Antonio/api-convert-to-b64/model"
 	"github.com/labstack/echo/v4"
 	"io/ioutil"
 	"net/http"
@@ -15,6 +15,7 @@ func NewImage() *Image {
 }
 
 func (i *Image) EncryptB64(c echo.Context) error {
+	imageData := model.Image{}
 	fileHeader, err := c.FormFile("image")
 	if err != nil {
 		response := helper.ResponseJSON(helper.MESSAGE, err.Error(), false, nil)
@@ -25,17 +26,23 @@ func (i *Image) EncryptB64(c echo.Context) error {
 		response := helper.ResponseJSON(helper.MESSAGE, err.Error(), false, nil)
 		return c.JSON(http.StatusInternalServerError, response)
 	}
+	defer file.Close()
 	b64, err := ioutil.ReadAll(file)
 	if err != nil {
 		response := helper.ResponseJSON(helper.MESSAGE, err.Error(), false, nil)
 		return c.JSON(http.StatusInternalServerError, response)
 	}
-	fmt.Println(fileHeader.Filename)
+
+	imageData.Src = b64
+	imageData.FileName = fileHeader.Filename
+	imageData.Size = fileHeader.Size
+	imageData.Header = fileHeader.Header
+
 	response := helper.ResponseJSON(
 		helper.MESSAGE,
 		"the image has been successfully converted",
 		false,
-		b64,
+		imageData,
 	)
 	return c.JSON(http.StatusOK, response)
 }
