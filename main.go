@@ -13,7 +13,7 @@ func main() {
 	e := echo.New()
 	e.Use(middleware.CORS())
 	router.Image(e)
-	port := os.Getenv("POST")
+	port := os.Getenv("PORT")
 	if port == "" {
 		port = ":8080"
 	}
