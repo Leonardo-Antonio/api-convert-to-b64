@@ -9,4 +9,5 @@ func Image(e *echo.Echo) {
 	hand := handler.NewImage()
 	group := e.Group("/api/v1/image")
 	group.POST("/encrypt", hand.EncryptB64)
+	group.GET("", hand.Test)
 }

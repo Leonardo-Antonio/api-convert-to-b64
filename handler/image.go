@@ -39,3 +39,13 @@ func (i *Image) EncryptB64(c echo.Context) error {
 	)
 	return c.JSON(http.StatusOK, response)
 }
+
+func (i *Image) Test(c echo.Context) error {
+	response := helper.ResponseJSON(
+		helper.MESSAGE,
+		"the image has been successfully converted",
+		false,
+		"Test - heroku deployd",
+	)
+	return c.JSON(http.StatusOK, response)
+}
