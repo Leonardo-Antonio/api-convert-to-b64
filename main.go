@@ -17,6 +17,6 @@ func main() {
 	if port == "" {
 		port = ":8080"
 	}
-	fmt.Println("PORTTTTTTTTTTTTT", port)
+	fmt.Println("PORTTTTTT no POST", port)
 	e.Logger.Fatal(e.Start(port))
 }
